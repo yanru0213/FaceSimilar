@@ -1,0 +1,6 @@
+applications:
+  - path: .
+    name: FaceSimilarity
+    memory: 512M
+    services:
+      - Visual Recognition-53

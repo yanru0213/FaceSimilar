@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Face Similarities</title>
+  <link rel="Shortcut Icon" type="image/x-icon" href="images/pageicon.ico">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300i,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/magnific-popup.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/lightgallery.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/swiper.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+
+
+    <header class="site-navbar py-3 border-bottom" role="banner">
+
+      <div class="container-fluid">
+        <div class="row align-items-center">
+
+          <div class="col-6 col-xl-2" data-aos="fade-down">
+            <h1 class="mb-0"><a href="." class="text-black h2 mb-0"><img src="images/camera.png" alt="Image"
+                  style="width: 20px; height: auto;"> <img src="images/title.jpg" alt="Image"
+                  style="width: 150px; height: auto;"></a></h1>
+          </div>
+          <div class="col-10 col-md-8 d-none d-xl-block" data-aos="fade-down">
+            <nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
+
+              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
+                <li><a href=".">首頁</a></li>
+                <li class="active"><a href="services.html">開始辨識</a></li>
+                <li><a href="about.html">關於我們</a></li>
+                <li><a href="contact.html">聯絡我們</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="col-6 col-xl-2 text-right" data-aos="fade-down">
+            <div class="d-none d-xl-inline-block">
+              <ul class="site-menu js-clone-nav ml-auto list-unstyled d-flex text-right mb-0" data-class="social">
+                <li>
+                  <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                </li>
+                <li>
+                  <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+                </li>
+                <li>
+                  <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                </li>
+                <li>
+                  <a href="#" class="pl-3 pr-3"><span class="icon-youtube-play"></span></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#"
+                class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </header>
+
+    <style>
+      #imgPreview {
+        width: 300px;
+        height: auto;
+        margin: 10px auto 0px auto;
+        border: 1px solid #BBBBBB;
+        text-align: center;
+      }
+
+      #prompt3 {
+        width: 100%;
+        height: 180px;
+        text-align: center;
+        position: relative;
+      }
+
+      #imgSpan {
+        position: absolute;
+        top: 35%;
+        left: 38%;
+      }
+
+      .filepath {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+
+      #img3 {
+        height: 100%;
+        width: 100%;
+        display: none;
+      }
+
+      .button1:hover {
+        background-color: #1AA279;
+        color: white;
+      }
+    </style>
+
+
+
+    <div class="site-section" data-aos="fade">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-md-7">
+            <div class="row mb-5">
+              <div class="col-12 ">
+                <h2 class="site-section-heading text-center">Start to Recognize</h2>
+              </div>
+            </div>
+            <div id="output" style="text-align: center; display: none;">
+              <h3 style="text-align: center">辨識結果</h3>
+              <p id="msgs" style="background-color:#D8F9EF;"></p>
+              <p id="faceImage"></p>
+              <p id="classlist" style="display: none;"><%= classList%></p>
+            </div>
+            <form id="form1" method="post" action="/" enctype="multipart/form-data">
+              <div id="uploadSelection">
+                <h3 style="text-align: center">上傳你的照片</h3>
+                <p style="text-align: center">從相簿選擇照片來測試你有哪個明星臉......</p>
+                <div id="imgPreview">
+                  <div id="prompt3">
+                    <span id="imgSpan">
+                      <img src="images/camera.png" alt="Image">
+                      <p>點選上傳</p>
+                    </span>
+                    <input name="images_file" type="file" id="FileUploder" class="filepath" onchange="changepic(this)"
+                      accept="image/jpg,image/jpeg,image/png,image/PNG">
+                    <!--當vaule值改變時執行changepic函式，規定上傳的檔案只能是圖片-->
+                  </div>
+                  <img src="#" id="img3" />
+                </div>
+              </div>
+              <br>
+              <div style="text-align:center;">
+                <input type="submit" value="提交照片" id="submitFile" class="btn btn-primary py-2 px-4 text-white"
+                  style="text-align:center;"></input>
+                <input type="button" id="showBtn" value="顯示結果" class="btn btn-primary py-2 px-4 text-white"
+                  style="text-align:center;"></input>
+                <input type="button" id="again" value="再試一次" class="btn btn-primary py-2 px-4 text-white"
+                  style="text-align:center; display: none;"></input>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer py-4">
+      <div class="container-fluid text-center">
+        <p>
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          Copyright &copy;
+          <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+          <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
+            class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        </p>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/swiper.min.js"></script>
+  <script src="js/aos.js"></script>
+
+  <script src="js/picturefill.min.js"></script>
+  <script src="js/lightgallery-all.min.js"></script>
+  <script src="js/jquery.mousewheel.min.js"></script>
+
+  <script src="js/main.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#lightgallery').lightGallery();
+    });
+
+    function changepic() {
+      $("#prompt3").css("display", "none");
+      var reads = new FileReader();
+      f = document.getElementById('FileUploder').files[0];
+      reads.readAsDataURL(f);
+      reads.onload = function (e) {
+        document.getElementById('img3').src = this.result;
+        $("#img3").css("display", "block");
+      };
+    }
+
+    var face = ["A Lin", "Aaron Yan","AlyssaChia", "Bii", "Crowd Lu", "Cyndi Wang", "Eddie Peng", "Ella", "Eric", "Fan fan", "Gdragon", "GEM", "Hyunah", "Jam Hsiao", "Jasper Liu", "Jennie", "Kim soohyun", "Korea Fish", "KP", "Lee Minho","Lisa", "LULU", "NICK", "OSN", "Selina", "Sunny", "Taeyeon", "Tsai Ingwen", "Will Pan", "Yoga Lin"];
+    var faceName = ["A-Lin", "炎亞綸","賈靜雯", "畢書盡Bii", "盧廣仲", "王心凌", "彭于晏", "陳嘉樺Ella", "周興哲", "范瑋琪", "G-Dragon", "鄧紫棋", "泫雅", "蕭敬騰", "劉以豪", "Jennie", "金秀賢", "韓國瑜", "柯文哲", "李敏鎬", "Lisa", "黄路梓茵Lulu", "周湯豪", "高爾宣", "任家萱Selina", "王陽明", "太妍", "蔡英文", "潘瑋柏", "林宥嘉"];
+    $("#showBtn").click(function () {
+      $("#output").toggle();
+      $("#uploadSelection").toggle();
+      $("#again").toggle();
+      $("#submitFile").toggle();
+      $("#showBtn").toggle();
+
+      var result = $("#classlist").text();
+      if (result == "[]") {
+        $("#msgs").text("您的照片無法辨識，請上傳其他照片再試試！");
+      } else {
+        var resultArray = result.split('"');
+        var scoreArray = resultArray[6].split("");
+        var score = parseFloat(scoreArray[1] + scoreArray[2] + scoreArray[3] + scoreArray[4] + scoreArray[5]) * 100;
+        for (i = 0; i < face.length; i++) {
+          if (resultArray[3] == face[i]) {
+            var msg = "您有跟" + faceName[i] + "一樣的明星臉！ 相似度高達" + score.toFixed(1) + "%";
+            $("#msgs").text(msg);
+            var imgMsg = '<img src="images/result/' + face[i] + '.jpg" style="width: auto; height: 300px;">';
+            $("#faceImage").html(imgMsg);
+          }
+        }
+      }
+    })
+    $("#again").click(function () {
+      $("#output").toggle();
+      $("#uploadSelection").toggle();
+      $("#again").toggle();
+      $("#submitFile").toggle();
+      $("#showBtn").toggle();
+      $("#msgs").text("");
+      $("#faceImage").html("");
+    })
+
+    // const xhr = new XMLHttpRequest();
+    // xhr.onload = function(){
+    //   const response = document.getElementById("response");
+    //   response.innerHTML = this.responseText;
+    // }
+    // xhr.open("POST",'/');
+    // xhr.setRequestHeader("Content-type","application/json");
+
+
+    // $(function(){
+    //   $.get("/uploads").done(function(classlist){$('#response').text(classlist)}).fail(alert);
+    // var response = document.getElementById("response")
+    //     response = "<%= classList%>"
+    //   $('#submitFile').click(function(e){
+    //     $.post('/').done(function(response){
+    //       $('#response').html(response);
+    //     })
+
+    //   })
+      //   var imagefile = $('#FileUploder').val();
+      //   $.post('/classlist',{file: imagefile}).done(function(){$('#response').text(classlist)}).fail(alert);
+      // })
+   // })
+  //  var classlist = "<%= classList%>";
+  //   $("#form1").submit(function(e){
+  //     alert( "Handler for .click() called." )
+      // $.ajax({
+      //           type: 'POST',
+      //           url: $('#form1').attr('action'),
+      //           data: $('#form1').serialize(),
+      //           accept: 'package/json',
+      //           error: function (xhr, status, error) {
+      //               alert('error: ' + xhr.statusText);
+      //           },
+      //           success: function (response) {
+      //                     $('#response').html(response);
+      //           }
+      //       });
+      // e.preventDefault();
+
+    //     $.post("/?images_file"+$('#FileUploder').val())
+    //       .done(function(val) {
+    //         $('#response').text(val);
+
+    //         //$('#photoURLInput').hide();
+    //       });
+    // });
+
+
+
+
+
+
+
+    // $('#form1').submit(function (evt) {
+    //   evt.preventDefault();
+    //   // $("#div123").load("/uploads");
+
+    // });
+
+    // $('#submit').click(function () {
+    //   if (document.getElementById('FileUploder').files.length == 0) {
+    //     alert('請先上傳照片！');
+    //   } else {
+    //     $.get()
+    //     window.onbeforeunload = function () { return 1; };  //阻擋重新整理
+    //     var file = document.getElementById('FileUploder').files[0]; //取得檔案
+    //     var xhr = new XMLHttpRequest(); //使用XHR背景上傳檔案
+    //     var addr = "/api/classify";
+    //     xhr.open("POST", addr, true);  //設定方法、網址
+    //     xhr.setRequestHeader("filename", encodeURI(file.name));  //在header加上檔名
+    //     xhr.onreadystatechange = function () { if (xhr.readyState == XMLHttpRequest.DONE) window.onbeforeunload = null; } //上傳結束時，取消阻擋重新整理
+    //     xhr.send(file); //開始上傳
+    //   }
+    // });
+
+
+  </script>
+
+</body>
+
+</html>
